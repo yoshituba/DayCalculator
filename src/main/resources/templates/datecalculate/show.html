@@ -10,33 +10,33 @@
 <body>
 <div class="container">
     <h1>Show Player</h1>
-    <div th:object="${player}">
+    <div th:object="${dateCalculateMaster}">
         <div>
-            <label>ID</label>
-            <p th:text="*{id}"></p>
+            <label>日付ID</label>
+            <p th:text="*{dateId}"></p>
         </div>
         <div>
-            <label>名前</label>
-            <p th:text="*{name}"></p>
+            <label>日付名</label>
+            <p th:text="*{dateName}"></p>
         </div>
         <div>
-            <label>年齢</label>
-            <p th:text="*{age}"></p>
+            <label>加算年</label>
+            <p th:text="*{year}"></p>
         </div>
         <div>
-            <label>チーム名</label>
-            <p th:text="*{team}"></p>
+            <label>加算月</label>
+            <p th:text="*{month}"></p>
         </div>
         <div>
-            <label>守備位置</label>
-            <p th:text="*{position}"></p>
+            <label>加算日</label>
+            <p th:text="*{day}"></p>
         </div>
     </div>
     <div>
-        <a class="btn btn-default" th:href="@{/players/{id}/edit(id=*{id})}">編集</a>
+        <a class="btn btn-default" th:href="@{/datecalculate/{id}/edit(id=*{id})}">編集</a>
     </div>
     <div class="pull-right">
-        <a class="btn btn-link" href="/players">一覧画面へ</a>
+        <a class="btn btn-link" href="/datecalculate">一覧画面へ</a>
     </div>
 </div>
 </body>

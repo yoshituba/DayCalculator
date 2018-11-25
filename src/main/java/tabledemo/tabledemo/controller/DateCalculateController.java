@@ -19,18 +19,34 @@ public class DateCalculateController {
     @Autowired
     private DateCalculateService dateCalculateService;
 
+//    @GetMapping
+//    public String index(Model model){
+//        List<DateCalculateMaster> dateCalculateMasters = dateCalculateService.findAll();
+//
+//        model.addAttribute("dateCalculateMasters", dateCalculateMasters);
+//
+//        return "datecalculate/index";
+//    }
     @GetMapping
     public String index(Model model){
         List<DateCalculateMaster> dateCalculateMasters = dateCalculateService.findAll();
+        LocalDate initialDate = LocalDate.now();
 
-        model.addAttribute("dateCalculateMasters", dateCalculateMasters);
+        List<ResultDate> resultDates = dateCalculateService.createResultDate(dateCalculateMasters, initialDate);
+
+        model.addAttribute("resultDates", resultDates);
 
         return "datecalculate/index";
     }
 
+//    @GetMapping("new")
+//    public String newPlayer(Model model){
+//        return "businessDates/new";
+//    }
+
     @GetMapping("new")
-    public String newPlayer(Model model){
-        return "businessDates/new";
+    public String create(Model model){
+        return "datecalculate/new";
     }
 
     @GetMapping("{id}/edit")
@@ -41,6 +57,14 @@ public class DateCalculateController {
         return "datecalculate/edit";
     }
 
+//    @GetMapping("{id}")
+//    public String show(@PathVariable Long id, Model model){
+//        DateCalculateMaster dateCalculateMaster = dateCalculateService.getOne(id);
+//
+//        model.addAttribute("dateCalculateMaster", dateCalculateMaster);
+//
+//        return "datecalculate/show";
+//    }
     @GetMapping("{id}")
     public String show(@PathVariable Long id, Model model){
         DateCalculateMaster dateCalculateMaster = dateCalculateService.getOne(id);
@@ -54,7 +78,7 @@ public class DateCalculateController {
     public String create(@ModelAttribute("baseDate") String baseDate, Model model){
         List<ResultDate> resultDates = dateCalculateService.calculateResultDate(baseDate);
         model.addAttribute("resultDates", resultDates);
-        return "datecalculate/test";
+        return "datecalculate/index";
     }
 
     @PutMapping("{id}")
@@ -71,16 +95,6 @@ public class DateCalculateController {
         return "redirect:/datecalculate";
     }
 
-    @GetMapping("test")
-    public String testPage(Model model){
-        List<DateCalculateMaster> dateCalculateMasters = dateCalculateService.findAll();
-        LocalDate initialDate = LocalDate.now();
 
-        List<ResultDate> resultDates = dateCalculateService.createResultDate(dateCalculateMasters, initialDate);
-
-        model.addAttribute("resultDates", resultDates);
-
-        return "datecalculate/test";
-    }
 
 }
