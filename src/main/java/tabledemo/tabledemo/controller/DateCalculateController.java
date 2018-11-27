@@ -19,14 +19,6 @@ public class DateCalculateController {
     @Autowired
     private DateCalculateService dateCalculateService;
 
-//    @GetMapping
-//    public String index(Model model){
-//        List<DateCalculateMaster> dateCalculateMasters = dateCalculateService.findAll();
-//
-//        model.addAttribute("dateCalculateMasters", dateCalculateMasters);
-//
-//        return "datecalculate/index";
-//    }
     @GetMapping
     public String index(Model model){
         List<DateCalculateMaster> dateCalculateMasters = dateCalculateService.findAll();
@@ -38,11 +30,6 @@ public class DateCalculateController {
 
         return "datecalculate/index";
     }
-
-//    @GetMapping("new")
-//    public String newPlayer(Model model){
-//        return "businessDates/new";
-//    }
 
     @GetMapping("new")
     public String create(Model model){
@@ -57,14 +44,6 @@ public class DateCalculateController {
         return "datecalculate/edit";
     }
 
-//    @GetMapping("{id}")
-//    public String show(@PathVariable Long id, Model model){
-//        DateCalculateMaster dateCalculateMaster = dateCalculateService.getOne(id);
-//
-//        model.addAttribute("dateCalculateMaster", dateCalculateMaster);
-//
-//        return "datecalculate/show";
-//    }
     @GetMapping("{id}")
     public String show(@PathVariable Long id, Model model){
         DateCalculateMaster dateCalculateMaster = dateCalculateService.getOne(id);
@@ -75,10 +54,17 @@ public class DateCalculateController {
     }
 
     @PostMapping("calculate")
-    public String create(@ModelAttribute("baseDate") String baseDate, Model model){
+    public String calculate(@ModelAttribute("baseDate") String baseDate, Model model){
         List<ResultDate> resultDates = dateCalculateService.calculateResultDate(baseDate);
         model.addAttribute("resultDates", resultDates);
         return "datecalculate/index";
+    }
+
+    @PostMapping
+    public String create(@ModelAttribute DateCalculateMaster dateCalculateMaster){
+        dateCalculateService.save(dateCalculateMaster);
+
+        return "redirect:datecalculate";
     }
 
     @PutMapping("{id}")
@@ -94,7 +80,4 @@ public class DateCalculateController {
         dateCalculateService.deleteById(id);
         return "redirect:/datecalculate";
     }
-
-
-
 }
