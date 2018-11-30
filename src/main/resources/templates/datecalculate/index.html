@@ -42,7 +42,7 @@
                 <td><a class="btn btn-default btn-xs" th:href="@{/datecalculate/{id}/edit(id=*{id})}">編集</a></td>
                 <td>
                     <form th:action="@{/datecalculate/{id}(id=*{id})}" th:method="delete">
-                        <input class="btn btn-default btn-xs" type="submit" value="削除" />
+                        <input class="btn btn-default btn-xs" type="submit" value="削除" onClick="disp()"/>
                     </form>
                 </td>
             </tr>
@@ -57,6 +57,7 @@
     <script>
         let baseDate = document.getElementById('baseDate');
         let calculateBtn = document.getElementById('calculateBtn');
+        <!--let deleteBtn = document.getElementById('deleteBtn');-->
 
         baseDate.addEventListener('keyup', checkInput);
 
@@ -69,6 +70,10 @@
                 calculateBtn.classList.add('disabled');
             }
         }
+        <!--TODO: 今だとCancelしても削除される汗-->
+        function disp(){
+            window.confirm('本当にいいんですね？')
+        };
     </script>
 
 </body>

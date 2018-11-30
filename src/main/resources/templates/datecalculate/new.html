@@ -14,31 +14,31 @@
     <form role="form" data-toggle="validator" th:action="@{/datecalculate}" th:method="post">
         <div class="form-group">
             <label class="control-label">日付ID</label>
-            <input class="form-control" type="text" name="dateId" data-required-error="必須項目です。" required/>
+            <input class="form-control" type="text" name="dateId" placeholder="D01" data-required-error="必須項目です。" required/>
             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
             <div class="help-block with-errors"></div>
         </div>
         <div class="form-group">
             <label class="control-label">日付名</label>
-            <input class="form-control" type="text" name="dateName" data-required-error="必須項目です。" required/>
+            <input class="form-control" type="text" name="dateName" placeholder="翌日" data-required-error="必須項目です。" required/>
             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
             <div class="help-block with-errors"></div>
         </div>
         <div class="form-group">
             <label class="control-label">加算年</label>
-            <input class="form-control" type="number" name="year" data-required-error="必須項目です。" required/>
+            <input class="form-control" type="number" name="year" placeholder="0" data-required-error="必須項目です。" required/>
             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
             <div class="help-block with-errors"></div>
         </div>
         <div class="form-group">
             <label class="control-label">加算月</label>
-            <input class="form-control" type="number" name="month" data-required-error="必須項目です。" required/>
+            <input class="form-control" type="number" name="month" placeholder="0" data-required-error="必須項目です。" required/>
             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
             <div class="help-block with-errors"></div>
         </div>
         <div class="form-group">
             <label class="control-label">加算日</label>
-            <input class="form-control" type="number" name="day" data-required-error="必須項目です。" required/>
+            <input class="form-control" type="number" name="day" placeholder="1" data-required-error="必須項目です。" required/>
             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
             <div class="help-block with-errors"></div>
         </div>
