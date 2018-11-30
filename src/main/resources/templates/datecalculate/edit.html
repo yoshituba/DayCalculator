@@ -6,36 +6,49 @@
     <link rel="stylesheet" href="/css/bootstrap.css" />
     <script src="/js/jquery.js"></script>
     <script src="/js/bootstrap.js"></script>
+    <script src="/js/validator.js"></script>
 </head>
 <body>
 <div class="container">
     <h1>Editing Date Master</h1>
-    <form th:action="@{/datecalculate/{id}(id=*{id})}" th:method="put" th:object="${dateCalculateMaster}">
+    <form role="form" data-toggle="validator" th:action="@{/datecalculate/{id}(id=*{id})}" th:method="put" th:object="${dateCalculateMaster}">
         <div class="form-group">
             <label class="control-label">日付ID</label>
-            <input class="form-control" type="text" th:field="*{dateId}" />
+            <input id='dateId' class="form-control" type="text" th:field="*{dateId}" data-required-error="必須項目です。" required/>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            <div class="help-block with-errors"></div>
         </div>
         <div class="form-group">
             <label class="control-label">日付名</label>
-            <input class="form-control" type="text" th:field="*{dateName}" />
+            <input id='dateName' class="form-control" type="text" th:field="*{dateName}" data-required-error="必須項目です。" required/>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            <div class="help-block with-errors"></div>
         </div>
         <div class="form-group">
             <label class="control-label">加算年</label>
-            <input class="form-control" type="number" th:field="*{year}" />
+            <input id='year' class="form-control" type="number" th:field="*{year}" data-required-error="必須項目です。" required/>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            <div class="help-block with-errors"></div>
         </div>
         <div class="form-group">
             <label class="control-label">加算月</label>
-            <input class="form-control" type="number" th:field="*{month}" />
+            <input id='month' class="form-control" type="number" th:field="*{month}" data-required-error="必須項目です。" required/>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            <div class="help-block with-errors"></div>
         </div>
         <div class="form-group">
-            <label class="control-label">加算月</label>
-            <input class="form-control" type="number" th:field="*{day}" />
+            <label class="control-label">加算日</label>
+            <input id='day' class="form-control" type="number" th:field="*{day}" data-required-error="必須項目です。" required/>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            <div class="help-block with-errors"></div>
         </div>
         <button class="btn btn-default" type="submit">更新</button>
     </form>
     <div class="pull-right">
-        <a class="btn btn-link" href="/datecalculate">一覧画面へ</a>
+        <a id='editBtn' class="btn btn-link" href="/datecalculate">一覧画面へ</a>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>
