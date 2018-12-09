@@ -1,30 +1,30 @@
-package tabledemo.tabledemo.controller;
+package daycalculator.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import tabledemo.tabledemo.domain.DateCalculateMaster;
-import tabledemo.tabledemo.domain.ResultDate;
-import tabledemo.tabledemo.service.DateCalculateService;
+import daycalculator.domain.DateCalculateMaster;
+import daycalculator.domain.ResultDate;
+import daycalculator.service.DateCalculateService;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/datecalculate")
 public class DateCalculateController {
 
+    //利用するサービスの意図がControllerから明確にわかるのでサービスの変数名はこの場合はserviceでよい
     @Autowired
-    private DateCalculateService dateCalculateService;
+    private DateCalculateService service;
 
     @GetMapping
     public String index(Model model){
-        List<DateCalculateMaster> dateCalculateMasters = dateCalculateService.findAll();
+        List<DateCalculateMaster> dateCalculateMasters = service.search();
         LocalDate initialDate = LocalDate.now();
 
-        List<ResultDate> resultDates = dateCalculateService.createResultDate(dateCalculateMasters, initialDate);
+        List<ResultDate> resultDates = service.createResultDate(dateCalculateMasters, initialDate);
 
         model.addAttribute("resultDates", resultDates);
 
@@ -38,15 +38,15 @@ public class DateCalculateController {
 
     @GetMapping("{id}/edit")
     public String edit(@PathVariable Long id, Model model){
-        DateCalculateMaster dateCalculateMaster = dateCalculateService.getOne(id);
-        model.addAttribute("dateCalculateMaster", dateCalculateMaster);
+        DateCalculateMaster result = service.searchByPK(id);
+        model.addAttribute("result", result);
 
         return "datecalculate/edit";
     }
 
     @GetMapping("{id}")
     public String show(@PathVariable Long id, Model model){
-        DateCalculateMaster dateCalculateMaster = dateCalculateService.getOne(id);
+        DateCalculateMaster dateCalculateMaster = service.searchByPK(id);
 
         model.addAttribute("dateCalculateMaster", dateCalculateMaster);
 
@@ -55,29 +55,29 @@ public class DateCalculateController {
 
     @PostMapping("calculate")
     public String calculate(@ModelAttribute("baseDate") String baseDate, Model model){
-        List<ResultDate> resultDates = dateCalculateService.calculateResultDate(baseDate);
+        List<ResultDate> resultDates = service.calculateResultDate(baseDate);
         model.addAttribute("resultDates", resultDates);
         return "datecalculate/index";
     }
 
     @PostMapping
     public String create(@ModelAttribute DateCalculateMaster dateCalculateMaster){
-        dateCalculateService.save(dateCalculateMaster);
+        service.save(dateCalculateMaster);
 
         return "redirect:datecalculate";
     }
 
     @PutMapping("{id}")
-    public String update(@PathVariable Long id, @ModelAttribute DateCalculateMaster dateCalculateMaster){
+    public String save(@PathVariable Long id, @ModelAttribute DateCalculateMaster dateCalculateMaster){
         dateCalculateMaster.setId(id);
-        dateCalculateService.save(dateCalculateMaster);
+        service.save(dateCalculateMaster);
 
         return "redirect:/datecalculate";
     }
 
     @DeleteMapping("{id}")
     public String destroy(@PathVariable Long id){
-        dateCalculateService.deleteById(id);
+        service.deleteById(id);
         return "redirect:/datecalculate";
     }
 }

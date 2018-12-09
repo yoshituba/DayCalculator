@@ -11,7 +11,7 @@
 <body>
 <div class="container">
     <h1>Editing Date Master</h1>
-    <form role="form" data-toggle="validator" th:action="@{/datecalculate/{id}(id=*{id})}" th:method="put" th:object="${dateCalculateMaster}">
+    <form role="form" data-toggle="validator" th:action="@{/datecalculate/{id}(id=*{id})}" th:method="put" th:object="${result}">
         <div class="form-group">
             <label class="control-label">日付ID</label>
             <input id='dateId' class="form-control" type="text" th:field="*{dateId}" data-required-error="必須項目です。" required/>
@@ -42,7 +42,7 @@
             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
             <div class="help-block with-errors"></div>
         </div>
-        <button class="btn btn-default" type="submit">更新</button>
+        <button class="btn btn-default" type="submit">保存</button>
     </form>
     <div class="pull-right">
         <a id='editBtn' class="btn btn-link" href="/datecalculate">一覧画面へ</a>
