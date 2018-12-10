@@ -1,6 +1,7 @@
 package daycalculator.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Service;
 import daycalculator.domain.DateCalculateMaster;
 import daycalculator.domain.ResultDate;
@@ -34,20 +35,38 @@ public class DateCalculateService {
     }
 
     public List<ResultDate> createResultDate(List<DateCalculateMaster> dateCalculateMasters, LocalDate inputDate){
-        return dateCalculateMasters.stream().map(d -> new ResultDate(d, inputDate)).collect(Collectors.toList());
+
+        List<ResultDate> resultDates = dateCalculateMasters.stream().map(master -> new ResultDate(master)).collect(Collectors.toList());
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        resultDates.stream().forEach(r -> r.setResultDate(calculateResultDate(inputDate.format(dateTimeFormatter), r)));
+        return resultDates;
     }
 
-    public List<ResultDate> calculateResultDate(String inputDate){
+    public List<ResultDate> calculate(String inputDate){
         List<DateCalculateMaster> dateCalculateMasters = search();
+
+        List<ResultDate> resultDates = dateCalculateMasters.stream().map(d -> new ResultDate(d)).collect(Collectors.toList());
+
+        resultDates.stream().forEach(r -> r.setResultDate(calculateResultDate(inputDate, r)));
+
+        return resultDates;
+
+    }
+
+    public LocalDate calculateResultDate(String inputDate, ResultDate resultDate){
 
         String[] dates = inputDate.split("/",0);
 
+        Integer adjustmentYears = searchByPK(resultDate.getId()).getYear();
+        Integer adjustmentMonths = searchByPK(resultDate.getId()).getMonth();
+        Integer adjustmentDays = searchByPK(resultDate.getId()).getDay();
+
         LocalDate date = LocalDate.of(Integer.parseInt(dates[0]), Integer.parseInt(dates[1]), Integer.parseInt(dates[2]));
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-
-
-        return dateCalculateMasters.stream().map(d -> new ResultDate(d, date)).collect(Collectors.toList());
+        return date.plusYears(adjustmentYears).plusMonths(adjustmentMonths).plusDays(adjustmentDays);
 
     }
+
+
 }

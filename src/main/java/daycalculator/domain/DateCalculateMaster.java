@@ -1,13 +1,16 @@
 package daycalculator.domain;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "date_calculate_master")
-@Data
+@Getter
+@Setter
 public class DateCalculateMaster {
 
     @Id

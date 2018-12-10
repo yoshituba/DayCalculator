@@ -55,7 +55,7 @@ public class DateCalculateController {
 
     @PostMapping("calculate")
     public String calculate(@ModelAttribute("baseDate") String baseDate, Model model){
-        List<ResultDate> resultDates = service.calculateResultDate(baseDate);
+        List<ResultDate> resultDates = service.calculate(baseDate);
         model.addAttribute("resultDates", resultDates);
         return "datecalculate/index";
     }
