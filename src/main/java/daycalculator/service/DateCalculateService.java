@@ -7,12 +7,14 @@ import daycalculator.domain.DateCalculateMaster;
 import daycalculator.domain.ResultDate;
 import daycalculator.repository.DateCalculateRepository;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class DateCalculateService {
 
     @Autowired
