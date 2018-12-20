@@ -1,7 +1,10 @@
 package daycalculator.controller;
 
+import com.fasterxml.jackson.databind.ser.std.DateSerializer;
 import daycalculator.domain.DateCalculateMaster;
+import daycalculator.domain.ResultDate;
 import daycalculator.repository.DateCalculateRepository;
+import daycalculator.service.DateCalculateService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,9 +16,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -27,6 +34,9 @@ public class DateCalculateControllerTest {
 
     @Autowired
     DateCalculateController controller;
+
+    @Autowired
+    DateCalculateService service;
 
     private MockMvc mockMVC;
 
@@ -51,7 +61,38 @@ public class DateCalculateControllerTest {
         when(repository.getOne(TEST_ID)).thenReturn(this.master);
     }
     @Test
-    public void index() throws Exception {
+    public void datecalculateにアクセスして正しいVIEWがかえってくるか() throws Exception {
         mockMVC.perform(get("/datecalculate")).andExpect(view().name("datecalculate/index"));
     }
+
+    @Test
+    public void datecalculateにアクセスしてHTTPステータスコードが正しいか() throws Exception{
+        mockMVC.perform(get("/datecalculate")).andExpect((status().isOk()));
+    }
+
+    //TODO: 変数に正しい値が詰められているかをチェック
+//    @Test
+//    public void datecalculateにアクセスして正しい変数を詰められているのか() throws Exception{
+//        List<DateCalculateMaster> dateCalculateMasters = service.search();
+//        LocalDate initialDate = LocalDate.now();
+//
+//        List<ResultDate> resultDates = service.createResultDate(dateCalculateMasters, initialDate);
+//
+//        mockMVC.perform(get("/datecalculate"))
+//                .andExpect(status().isOk())
+//                .andExpect(view().name("datecalculate/index"))
+//                .andExpect(model().attribute("resultDates", resultDates));
+//    }
+
+    //TODO: POSTメソッドのテストがうまく実装できない
+//    @Test
+//    public void postメソッドのテスト() throws Exception{
+//        Employee emp = createEmployee();
+//
+//        mvc.perform(post("datecalculate/calculate")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(toJson(emp)))
+//                .andExpect(status().isOk());
+//    }
+
 }

@@ -1,9 +1,6 @@
 package daycalculator.domain;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
@@ -11,10 +8,8 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "date_calculate_master")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-//@Proxy(lazy=false)
 public class DateCalculateMaster {
 
     @Id
