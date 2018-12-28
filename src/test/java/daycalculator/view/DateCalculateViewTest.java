@@ -25,21 +25,15 @@ public class DateCalculateViewTest {
 
     @Before
     public void  setUpTest(){
-        open("https://www.google.co.jp/");
+        open("http://localhost:8080/datecalculate/");
     }
     @Test
-    public void test() {
-//        // Googleトップページ
-//        // "selenide"を検索
-//        open("https://www.google.co.jp/");
-//        $("#lst-ib").val("selenide").pressEnter();
-//
-//        // 検索ページ
-//        // Selenideの公式ページをクリック
-//        $(By.linkText("Selenide: concise UI tests in Java")).click();
-//
-//        // Selenide公式ページ
-//        // 「What is Selenide?」という文言があることを確認
-//        $("body").shouldHave(text("What is Selenide?"));
+    public void 計算画面で計算基準日に20181201を入れて結果が一覧取得できること() {
+        $(By.id("baseDate")).setValue("2018/12/01");
+
+        $(By.id("calculateBtn")).click();
+
+        $(By.cssSelector("table tbody")).shouldBe(visible);
+
     }
 }
