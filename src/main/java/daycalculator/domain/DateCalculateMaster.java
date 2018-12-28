@@ -17,11 +17,11 @@ public class DateCalculateMaster {
     private Long id;
 
     @NotNull
-    @Column(name = "date_id", nullable = false)
+    @Column(name = "date_id", nullable = false, unique = true)
     private String dateId;
 
     @NotNull
-    @Column(name = "date_name", nullable = false)
+    @Column(name = "date_name", nullable = false, unique = true )
     private String dateName;
 
     @NotNull
