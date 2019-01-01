@@ -1,6 +1,7 @@
 package daycalculator.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,9 @@ import daycalculator.domain.DateCalculateMaster;
 import daycalculator.domain.ResultDate;
 import daycalculator.service.DateCalculateService;
 
+import javax.validation.ConstraintViolationException;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -61,9 +65,14 @@ public class DateCalculateController {
     }
 
     @PostMapping
-    public String create(@ModelAttribute DateCalculateMaster dateCalculateMaster){
-        service.save(dateCalculateMaster);
-
+    public String create(@ModelAttribute DateCalculateMaster dateCalculateMaster) throws Exception{
+        try{
+            service.save(dateCalculateMaster);
+        }catch(ConstraintViolationException e){
+            System.out.println("重複エラー");
+            e.printStackTrace();
+            return "redirect:datecalculate";
+        }
         return "redirect:datecalculate";
     }
 
