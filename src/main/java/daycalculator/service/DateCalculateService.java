@@ -28,7 +28,7 @@ public class DateCalculateService {
         return repository.getOne(id);
     }
 
-    public DateCalculateMaster save(DateCalculateMaster dateCalculateMaster) {
+    public DateCalculateMaster save(DateCalculateMaster dateCalculateMaster) throws Exception {
         return repository.save(dateCalculateMaster);
     }
 

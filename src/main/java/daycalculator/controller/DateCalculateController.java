@@ -65,19 +65,19 @@ public class DateCalculateController {
     }
 
     @PostMapping
-    public String create(@ModelAttribute DateCalculateMaster dateCalculateMaster) throws Exception{
+    public String create(@ModelAttribute DateCalculateMaster dateCalculateMaster){
         try{
             service.save(dateCalculateMaster);
-        }catch(ConstraintViolationException e){
-            System.out.println("重複エラー");
+        } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("重複エラー");
             return "redirect:datecalculate";
         }
         return "redirect:datecalculate";
     }
 
     @PutMapping("{id}")
-    public String save(@PathVariable Long id, @ModelAttribute DateCalculateMaster dateCalculateMaster){
+    public String save(@PathVariable Long id, @ModelAttribute DateCalculateMaster dateCalculateMaster) throws Exception {
         dateCalculateMaster.setId(id);
         service.save(dateCalculateMaster);
 
