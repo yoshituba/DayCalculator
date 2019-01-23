@@ -28,12 +28,12 @@ defaultTasks 'build'
 sourceSets {
 	main {
 		java {
-			srcDir 'main/java'
+			srcDir 'src/main/java'
 		}
 	}
 	test {
 		java {
-			srcDir 'test/java'
+			srcDir 'src/test/java'
 		}
 	}
 }
